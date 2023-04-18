@@ -58,41 +58,11 @@ resource "aws_instance" "nodes" {
 locals {
 
   setup_nodes_executors = {
-    jmeter = {
-      node_user_data_base64 = base64encode(
-        templatefile(
-          "${path.module}/scripts/entrypoint.node.full.sh.tpl",
-          {
-            JVM_ARGS = var.nodes_jvm_args
-          }
-        )
-      )
-    }
-    bzt = {
-      node_user_data_base64 = base64encode(
-        templatefile(
-          "${path.module}/scripts/entrypoint.node.full.sh.tpl",
-          {
-            JVM_ARGS = var.nodes_jvm_args
-          }
-        )
-      )
-    }
     locust = {
       node_user_data_base64 = base64encode(
         templatefile(
           "${path.module}/scripts/locust.entrypoint.node.full.sh.tpl",
           {}
-        )
-      )
-    }
-    k6 = {
-      node_user_data_base64 = base64encode(
-        templatefile(
-          "${path.module}/scripts/k6.entrypoint.node.full.sh.tpl",
-          {
-            JVM_ARGS = var.nodes_jvm_args
-          }
         )
       )
     }
