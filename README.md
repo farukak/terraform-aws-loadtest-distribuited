@@ -1,69 +1,10 @@
 # AWS LoadTest Distribuited Terraform Module
 
-This module proposes a simple and uncomplicated way to run your load tests created with JMeter, Locust, K6 or TaurusBzt on AWS as IaaS.
+This module proposes a simple and uncomplicated way to run your load tests created with Locust on AWS as IaaS.
 
 
 ![bp](https://github.com/marcosborges/terraform-aws-loadtest-distribuited/raw/master/assets/blueprint.png)
 
-
-## Basic usage with JMeter
-
-```hcl
-module "loadtest-distribuited" {
-
-    source  = "marcosborges/loadtest-distribuited/aws"
-
-    name = "nome-da-implantacao"
-    executor = "jmeter"
-    loadtest_dir_source = "examples/plan/"
-    nodes_size = 2
-    
-    loadtest_entrypoint = "jmeter -n -t jmeter/basic.jmx  -R \"{NODES_IPS}\" -l /var/logs/loadtest -e -o /var/www/html -Dnashorn.args=--no-deprecation-warning -Dserver.rmi.ssl.disable=true "
-
-    subnet_id = data.aws_subnet.current.id
-}
-
-data "aws_subnet" "current" {
-    filter {
-        name   = "tag:Name"
-        values = ["my-subnet-name"]
-    }
-}
-```
-
-![bp](https://github.com/marcosborges/terraform-aws-loadtest-distribuited/raw/master/assets/example-basic.png) 
-
-
-![bp](https://github.com/marcosborges/terraform-aws-loadtest-distribuited/raw/master/assets/jmeter-dashboard.png) 
-
----
-
-## Basic usage with Taurus
-    
-In its basic use it is necessary to provide information about which network will be used, where are your test plan scripts and finally define the number of nodes needed to carry out the desired load.
-
-```hcl
-module "loadtest-distribuited" {
-
-    source  = "marcosborges/loadtest-distribuited/aws"
-
-    name = "nome-da-implantacao"
-    executor = "jmeter"
-    loadtest_dir_source = "examples/plan/"
-    nodes_size = 2
-    
-    loadtest_entrypoint = "bzt -q -o execution.0.distributed=\"{NODES_IPS}\" taurus/basic.yml"
-
-    subnet_id = data.aws_subnet.current.id
-}
-
-data "aws_subnet" "current" {
-    filter {
-        name   = "tag:Name"
-        values = ["my-subnet-name"]
-    }
-}
-```
 
 ## Basic usage with Locust
 
