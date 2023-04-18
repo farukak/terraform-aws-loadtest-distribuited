@@ -3,9 +3,6 @@
 This module proposes a simple and uncomplicated way to run your load tests created with Locust on AWS as IaaS.
 
 
-![bp](https://github.com/marcosborges/terraform-aws-loadtest-distribuited/raw/master/assets/blueprint.png)
-
-
 ## Basic usage with Locust
 
 
