@@ -4,19 +4,9 @@ locals {
   leader_private_ip = aws_instance.leader.private_ip
 
   executors = {
-    jmeter = {
-      nodes_ips = join(",", aws_instance.nodes.*.private_ip)
-    }
-    bzt = {
-      nodes_ips = "['${join("','", aws_instance.nodes.*.private_ip)}']"
-    }
     locust = {
       nodes_ips = join(",", aws_instance.nodes.*.private_ip)
       leader_ip = local.leader_private_ip
-    }
-    k6 = {
-      waiting   = "#"
-      nodes_ips = ""
     }
   }
 
