@@ -37,10 +37,6 @@ resource "aws_instance" "leader" {
     source      = var.loadtest_dir_source
   }
 
-  tags = merge(
-    var.tags,
-    var.leader_tags
-  )
 }
 
 
