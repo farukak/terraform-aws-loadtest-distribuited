@@ -42,41 +42,11 @@ resource "aws_instance" "leader" {
 
 locals {
   setup_leader_executors = {
-    jmeter = {
-      leader_user_data_base64 = base64encode(
-        templatefile(
-          "${path.module}/scripts/entrypoint.leader.full.sh.tpl",
-          {
-            JVM_ARGS = var.nodes_jvm_args
-          }
-        )
-      )
-    }
-    bzt = {
-      leader_user_data_base64 = base64encode(
-        templatefile(
-          "${path.module}/scripts/entrypoint.leader.full.sh.tpl",
-          {
-            JVM_ARGS = var.nodes_jvm_args
-          }
-        )
-      )
-    }
     locust = {
       leader_user_data_base64 = base64encode(
         templatefile(
           "${path.module}/scripts/locust.entrypoint.leader.full.sh.tpl",
           {}
-        )
-      )
-    }
-    k6 = {
-      leader_user_data_base64 = base64encode(
-        templatefile(
-          "${path.module}/scripts/k6.entrypoint.node.full.sh.tpl",
-          {
-            JVM_ARGS = var.nodes_jvm_args
-          }
         )
       )
     }
